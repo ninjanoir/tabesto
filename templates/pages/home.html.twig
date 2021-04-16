@@ -1,10 +1,33 @@
 {% extends './base.html.twig' %}
 
+{% block stylesheets %}
+
+	<link href="{{ asset('css/main.css') }}" type="text/css" rel="stylesheet"/>
+
+{% endblock %}
+
+
 {% block body %}
+	<h1 class="heading-primary">
+		<span class="heading">
+			Quel heure est il ?
+		</span>
+
+		<span class="sub-heading">
+			it's currently
+			{{ 'now' | date('d M Y H:i:s')}}
+		</span>
+	</h1>
 
 
-<h1 class="heading-primary">Quel heure est il ?<h1>
-
-<span>it's currently {{ now | date('d M Y H:i:s')}}</span>
+	<footer>
+		<p>
+			<span>&copy; copyright
+				{{'now' | date('Y')}}
+				&middot;
+				<a href="#">About Us</a>
+			</span>
+		</p>
+	</footer>
 
 {% endblock %}

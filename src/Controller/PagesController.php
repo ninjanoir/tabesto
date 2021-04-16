@@ -14,7 +14,6 @@ class PagesController extends AbstractController
      */
     public function home(): Response
     {
-        $now = new DateTime();
-        return $this->render('pages/home.html.twig', ['now' => $now]);
+        return $this->render('pages/home.html.twig');
     }
 }
