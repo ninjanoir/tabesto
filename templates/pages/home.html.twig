@@ -2,30 +2,36 @@
 
 {% block stylesheets %}
 
-	<link href="{{ asset('css/main.css') }}" type="text/css" rel="stylesheet"/>
+	<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
 {% endblock %}
 
 
 {% block body %}
-	<h1 class="heading-primary">
-		<span class="heading">
-			Quel heure est il ?
-		</span>
-
-		<span class="sub-heading">
-			it's currently
-			{{ 'now' | date('d M Y H:i:s')}}
-		</span>
-	</h1>
 
 
-	<footer>
-		<p>
+	<main class="my-6">
+
+		<h1>
+			<span class="text-5xl">
+				Quel heure est il ?
+			</span>
+
+			<span class="block text-center">
+				it's currently
+				{{ 'now' | date('d M Y H:i:s')}}
+			</span>
+		</h1>
+
+	</main>
+
+
+	<footer class="my-6">
+		<p class="text-gray-400">
 			<span>&copy; copyright
 				{{'now' | date('Y')}}
 				&middot;
-				<a href="#">About Us</a>
+				<a href="#" class="text-indigo-500 hover:text-indigo-600">About Us</a>
 			</span>
 		</p>
 	</footer>
