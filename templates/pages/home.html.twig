@@ -1,0 +1,10 @@
+{% extends './base.html.twig' %}
+
+{% block body %}
+
+
+<h1 class="heading-primary">Quel heure est il ?<h1>
+
+<span>it's currently {{ now | date('d M Y H:i:s')}}</span>
+
+{% endblock %}
