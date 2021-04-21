@@ -9,19 +9,40 @@
 
 {% block body %}
 
-
-	<main class="my-6">
+	<header>
 
 		<h1>
 			<span class="text-5xl">
-				Quel heure est il ?
+				Quel temps fera t'il ?
 			</span>
 
 			<span class="block text-center">
-				it's currently
+				Bonjour
 				{{ 'now' | date('d M Y H:i:s')}}
 			</span>
 		</h1>
+
+	</header>
+
+
+	<main class="my-6">
+		<form method="POST">
+			<select class="pl-3 pr-10 py-2 border-2 border-gray-200 rounded-xl hover:border-gray-300 focus:outline-none focus:border-blue-500 transition-colors" name="localisation">
+				{% for option in select %}
+					<option value="{{option.name}}">{{option.name}}</option>
+				{% endfor %}
+
+			</select>
+
+			<button class="btn bg-green-400 py-2 px-4 rounded" type="submit">Valider</button>
+		</form>
+
+
+		<div>
+
+		
+		
+		</div>
 
 	</main>
 
@@ -35,5 +56,4 @@
 			</span>
 		</p>
 	</footer>
-
 {% endblock %}
