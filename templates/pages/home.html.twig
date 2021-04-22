@@ -13,7 +13,7 @@
 
 		<h1>
 			<span class="text-5xl">
-				Quel temps fera t'il ?
+				Info Météo
 			</span>
 
 			<span class="block text-center">
@@ -26,24 +26,160 @@
 
 
 	<main class="my-6">
-		<form method="POST">
-			<select class="pl-3 pr-10 py-2 border-2 border-gray-200 rounded-xl hover:border-gray-300 focus:outline-none focus:border-blue-500 transition-colors" name="localisation">
-				{% for option in select %}
-					<option value="{{option.name}}">{{option.name}}</option>
-				{% endfor %}
 
-			</select>
+		<div class="text-center">
+			<form method="POST">
+				<label>Lieu
+					<select class="w-64 bg-purple-white shadow rounded border-0 p-3 m-6" name="localisation">
+						<option>selection...</option>
+						{% for option in select %}
+							<option value="{{option.name}}">{{option.name}}</option>
+						{% endfor %}
 
-			<button class="btn bg-green-400 py-2 px-4 rounded" type="submit">Valider</button>
-		</form>
-
-
-		<div>
-
-		
-		
+					</select>
+				</label>
+				<button class="text-white btn bg-black py-3 px-4 rounded" type="submit">Valider</button>
+			</form>
 		</div>
 
+		<nav class="flex items-center justify-center  ">
+			<div id="main-nav" class="w-full flex-grow lg:flex items-center lg:w-auto text-center m-6">
+				<div class="text-sm lg:flex-grow mt-2 animated jackinthebox xl:mx-8">
+					<a href="/average/temp" class="block lg:inline-block text-md font-bold  text-orange-500  sm:hover:border-indigo-400  hover:text-orange-500 mx-2 focus:text-blue-500  p-1 hover:bg-gray-300 sm:hover:bg-transparent rounded-lg">
+						7 days Average °c
+					</a>
+					<a href="/mosthotdays" class="block lg:inline-block text-md font-bold  text-gray-900  sm:hover:border-indigo-400  hover:text-orange-500 mx-2 focus:text-blue-500  p-1 hover:bg-gray-300 sm:hover:bg-transparent rounded-lg">
+						The hottest three day
+					</a>
+					<a href="/average/uvi" class="block lg:inline-block text-md font-bold  text-gray-900  sm:hover:border-indigo-400  hover:text-orange-500 mx-2 focus:text-blue-500  p-1 hover:bg-gray-300 sm:hover:bg-transparent rounded-lg">
+						7 days average UV
+					</a>
+					<a href="/rainyday" class="block lg:inline-block text-md font-bold  text-gray-900  sm:hover:border-indigo-400  hover:text-orange-500 mx-2 focus:text-blue-500  p-1 hover:bg-gray-300 sm:hover:bg-transparent rounded-lg">
+						The most rainy day
+					</a>
+				</div>
+
+			</div>
+		</nav>
+
+		<div
+			class="shadow-2xl p-10 text-center">
+
+			{% if app.request.attributes.get('_route') == "averageTemperatures" %}
+
+				<h5 class="uppercase w-2/5 m-auto text-purple-600 text-base">La moyenne des températures sur 7 jours</h5>
+
+				<span class="text-7xl">{{stat.avg}}°c</span>
+
+			{% elseif app.request.attributes.get('_route') == "threeDays" %}
+
+				<h5 class="uppercase w-2/5 m-auto text-purple-600 text-base">Les 3 jours les plus chauds</h5>
+
+				<figure class="lg:flex md:flex bg-gray-100 rounded-xl p-8 md:p-0 m-5 shadow items-center">
+					<div class="flex-none w-44 h-32 relative">
+						<img class="absolute inset-0 w-full h-full object-cover rounded-lg" src="https://static1.mclcm.net/lcm2018/int/picto/jour/c0010.png" alt="" width="384" height="512">
+					</div>
+
+
+					<div class="text-gray-900 font-bold text-base mb-2 mt-2">
+						{{stat.mostHotDays.third.dt | date('"j F, Y"', "Europe/Paris")}}
+					</div>
+					<div class="text-xl font-bold ml-5">
+						{{stat.mostHotDays.third.temp}}°c
+					</div>
+				</figure>
+
+				<figure class="lg:flex items-center md:flex bg-gray-100 rounded-xl p-8 md:p-0 m-5 shadow">
+					<div class="flex-none w-44 h-32 relative">
+						<img class="absolute inset-0 w-full h-full object-cover rounded-lg" src="https://static1.mclcm.net/lcm2018/int/picto/jour/c0010.png" alt="" width="384" height="512">
+					</div>
+
+
+					<div class="text-gray-900 font-bold text-base mb-2 mt-2">
+						{{stat.mostHotDays.second.dt | date('"j F, Y"', "Europe/Paris")}}
+					</div>
+					<div class="text-xl font-bold ml-5">
+						{{stat.mostHotDays.second.temp}}°c
+					</div>
+				</figure>
+
+				<figure class="lg:flex items-center md:flex bg-gray-100 rounded-xl p-8 md:p-0 m-5 shadow">
+					<div class="flex-none w-44 h-32 relative">
+						<img class="absolute inset-0 w-full h-full object-cover rounded-lg" src="https://static1.mclcm.net/lcm2018/int/picto/jour/c0010.png" alt="" width="384" height="512">
+					</div>
+
+
+					<div class="text-gray-900 font-bold text-base mb-2 mt-2">
+						{{stat.mostHotDays.first.dt | date('"j F, Y"', "Europe/Paris")}}
+					</div>
+					<div class="text-xl font-bold ml-5">
+						{{stat.mostHotDays.first.temp}}°c
+					</div>
+				</figure>
+
+			{% elseif app.request.attributes.get('_route') == "avgUvi" %}
+
+				<h5 class="uppercase w-2/5 m-auto text-purple-600 text-base">La moyenne des indice UV sur 7 jours</h5>
+
+				<span class="text-7xl">{{stat.avg}}</span>
+
+			{% elseif app.request.attributes.get('_route') == "rainyday" %}
+
+				<figure class="lg:flex md:flex bg-gray-100 rounded-xl p-8 md:p-0 m-5 shadow items-center">
+					<div class="flex-none w-44 h-32 relative">
+						<img class="absolute inset-0 w-full h-full object-cover rounded-lg" src="https://static1.mclcm.net/lcm2018/int/picto/jour/c0010.png" alt="" width="384" height="512">
+					</div>
+
+
+					<div class="text-gray-900 font-bold text-base mb-2 mt-2">
+						{{stat.dt | date('"j F, Y"', "Europe/Paris")}}
+					</div>
+					<div class="text-xl font-bold ml-5">
+					     <span>pluviométrie</span>
+						<span>{{stat.humidity}}</span>
+					</div>
+				</figure>
+
+
+			{% elseif app.request.attributes.get('_route') == "homepage" %}
+
+				<img class="object-contain" src="https://images.unsplash.com/photo-1447584402565-2a5b35a7ea8a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=998&q=80"  alt="rainy day" />
+
+
+			{% endif %}
+
+		</div>
+
+		<h5 class="text-3xl font-semibold mt-32 ml-10">Prévision sur
+			{{found}}</h5>
+
+		<div class="grid lg:grid-cols-5 lg:py-0 sm:grid-cols-2 sm:px-8 sm:gap-x-8 md:py-16">
+
+			{% for day in data.daily %}
+
+				{% set value = day.weather[0].main %}
+
+				{% set url ="https://meteofrance.com/modules/custom/mf_tools_common_theme_public/svg/weather/p2j.svg" %}
+
+
+				<figure class="lg:block md:flex bg-gray-100 rounded-xl p-8 md:p-0 m-5 shadow">
+					<div class="flex-none w-44 h-32 relative">
+						<img class="absolute inset-0 w-full h-full object-cover rounded-lg" src={{url}} alt="" width="150" height="250">
+					</div>
+
+
+					<div class="text-gray-600 font-bold text-sm mb-2 mt-2 ml-5">
+						{{day.dt | date('l, j F')}}
+					</div>
+					<div class="text-xl font-bold ml-5">
+						{{day.temp.day}}°c
+					</div>
+				</figure>
+
+			{% endfor %}
+
+
+		</div>
 	</main>
 
 

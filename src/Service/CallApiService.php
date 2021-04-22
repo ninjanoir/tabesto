@@ -20,24 +20,37 @@ class CallApiService
         return $this->url;
     }
 
-    public function getUrlAvgTemp(string $urlAvgTemp): string
+    public function getUrlAvgTemp(): string
     {
-        return $this->urlAvgTemp = $urlAvgTemp;
+        return $this->urlAvgTemp;
     }
 
-    public function getUrlMostHotDays(string $urlMostHotDays): string
+    public function getUrlMostHotDays(): string
     {
-        return $this->urlMostHotDays = $urlMostHotDays;
+        return $this->urlMostHotDays;
     }
 
-    public function getUrlAvgUvi(string $urlAvgUvi): string
+    public function getUrlAvgUvi(): string
     {
-        return $this->urlAvgUvi = $urlAvgUvi;
+        return $this->urlAvgUvi;
     }
 
-    public function getUrlRainfallDay(string $urlRainfallDay): string
+    public function getUrlRainfallDay(): string
     {
-        return $this->urlRainfallDay = $urlRainfallDay;
+        return $this->urlRainfallDay;
     }
+
+    // public function wichRoute($client, $found)
+    // {
+
+    //     $response = $client->request(
+    //         'POST',
+    //         self::getRootUrl(),
+    //         ["body" => ["lat" => $found->getLat(), "lng" => $found->getLng()]]
+
+    //     );
+
+    //     return $response;
+    // }
 
 }
