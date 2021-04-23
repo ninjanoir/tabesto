@@ -4,7 +4,7 @@ namespace App\MessageHandler;
 
 use App\Message\SetCoord;
 
-class SetCoorHandler
+class SetCoordHandler
 {
 
     //constructeur
@@ -21,6 +21,8 @@ class SetCoorHandler
         $lng = $coord->getLng();
 
         //donc le handler traite ici la requête
+
+        dump($lat, $lng);
 
 
         

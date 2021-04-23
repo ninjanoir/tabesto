@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use App\Message\SetCoord;
 use App\Repository\LocalizationRepository;
 use App\Service\CallApiService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -144,15 +146,18 @@ class PagesController extends AbstractController
         ]);
     }
 
-    // /**
-    //  * @Route("/test", name="test")
-    //  */
+    /**
+     * @Route("/test", name="test")
+     */
 
-    //  public function test(MessageBusInterface $bus)
-    //  {
+     public function test(MessageBusInterface $bus, SessionInterface $session)
+     {
 
-    //     return $this -> render('/pages/test.html.twig');
 
-    //  }
+        $bus->dispatch(new SetCoord(floatval($session->get('lat')), floatval($session->get('lng'))));
+
+        return $this -> render('/pages/test.html.twig');
+
+     }
 
 }
