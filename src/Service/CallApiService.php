@@ -40,17 +40,4 @@ class CallApiService
         return $this->urlRainfallDay;
     }
 
-    // public function wichRoute($client, $found)
-    // {
-
-    //     $response = $client->request(
-    //         'POST',
-    //         self::getRootUrl(),
-    //         ["body" => ["lat" => $found->getLat(), "lng" => $found->getLng()]]
-
-    //     );
-
-    //     return $response;
-    // }
-
 }

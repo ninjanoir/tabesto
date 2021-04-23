@@ -45,18 +45,5 @@ class LocalizationRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult()
         ;
-    }
-
-
-
-    // public function findAll(): ?Localization
-    // {
-    //     return $this->createQueryBuilder('localisation')
-    //         ->andWhere('localisation.name = :val')
-    //         ->setParameter('val', $value)
-    //         ->getQuery()
-    //         ->getOneOrNullResult()
-    //     ;
-    // }
-    
+    }    
 }

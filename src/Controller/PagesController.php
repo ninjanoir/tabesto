@@ -43,6 +43,8 @@ class PagesController extends AbstractController
         } else {
 
             $found = $loc->findOneBySomeField(["Paris 02"]);
+            $session->set('lat', $found->getLat());
+            $session->set('lng', $found->getLng());
 
         }
 
@@ -63,7 +65,6 @@ class PagesController extends AbstractController
                 $stat = json_decode($content);
 
                 $session->set('stat', $stat);
-
 
                 break;
 
@@ -120,22 +121,25 @@ class PagesController extends AbstractController
 
             default:
 
+                $response = $client->request(
+                    'POST',
+                    $callApiService->getRootUrl(),
+                    ["body" => ["lat" => $session->get('lat'), "lng" => $session->get('lng')]]
+
+                );
+
+                $content = $response->getContent();
+
+                $fromJson = json_decode($content);
+
                 break;
 
         }
 
-        $response = $client->request(
-            'POST',
-            $callApiService->getRootUrl(),
-            ["body" => ["lat" => $session->get('lat'), "lng" => $session->get('lng')]]
 
-        );
-
-        $content = $response->getContent();
-
-        $fromJson = json_decode($content);
 
         $place = $loc->findAll();
+
 
         return $this->render('pages/home.html.twig', [
             'select' => $place,
@@ -144,5 +148,16 @@ class PagesController extends AbstractController
             'stat' => $session->get('stat'),
         ]);
     }
+
+    // /**
+    //  * @Route("/test", name="test")
+    //  */
+
+    //  public function test(MessageBusInterface $bus)
+    //  {
+
+    //     return $this -> render('/pages/test.html.twig');
+
+    //  }
 
 }
