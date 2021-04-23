@@ -121,25 +121,20 @@ class PagesController extends AbstractController
 
             default:
 
-                $response = $client->request(
-                    'POST',
-                    $callApiService->getRootUrl(),
-                    ["body" => ["lat" => $session->get('lat'), "lng" => $session->get('lng')]]
-
-                );
-
-                $content = $response->getContent();
-
-                $fromJson = json_decode($content);
-
                 break;
 
         }
+        $response = $client->request(
+            'POST',
+            $callApiService->getRootUrl(),
+            ["body" => ["lat" => $session->get('lat'), "lng" => $session->get('lng')]]
 
+        );
 
+        $content = $response->getContent();
+        $fromJson = json_decode($content);
 
         $place = $loc->findAll();
-
 
         return $this->render('pages/home.html.twig', [
             'select' => $place,
