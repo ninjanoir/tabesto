@@ -153,8 +153,9 @@ class PagesController extends AbstractController
      public function test(MessageBusInterface $bus, SessionInterface $session)
      {
 
-
         $bus->dispatch(new SetCoord(floatval($session->get('lat')), floatval($session->get('lng'))));
+
+        
 
         return $this -> render('/pages/test.html.twig');
 

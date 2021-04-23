@@ -3,16 +3,21 @@
 namespace App\MessageHandler;
 
 use App\Message\SetCoord;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SetCoordHandler
 {
 
     //constructeur
+    public $client;
 
-    // method __invoke
-    //contient toute la logic du traitement du message reçu
+    public function __construct(HttpClientInterface $client)
+    {
 
-    //arg === sera la class qui représente le message à traiter
+        $this->client = $client;
+
+    }
+
     public function __invoke(SetCoord $coord)
     {
 
@@ -21,11 +26,11 @@ class SetCoordHandler
         $lng = $coord->getLng();
 
         //donc le handler traite ici la requête
+        $response = $this->client->request('POST', 'http://localhost:3000', ['body' => ['lat' => $lat, 'lng' => $lng]]);
 
-        dump($lat, $lng);
+        dump($response->getContent());
 
-
-        
+        return $response->getContent();
 
     }
 
